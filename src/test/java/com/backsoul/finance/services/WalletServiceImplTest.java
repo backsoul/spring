@@ -10,7 +10,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.boot.test.system.CapturedOutput;
 
 import com.backsoul.finance.models.WalletModel;
 import com.backsoul.finance.repositories.WalletRepository;
@@ -27,10 +26,11 @@ public class WalletServiceImplTest {
     @Autowired
     WalletServiceImpl walletService;
 
-    private static final Logger LOG = LoggerFactory.getLogger(WalletServiceImplTest.class);
-
-    /**
-     * get alls wallets
+    /*
+     *
+     * List wallets.
+     * 
+     * @result get alls wallets
      */
     @Test
     void testGetWallets() {
@@ -41,13 +41,19 @@ public class WalletServiceImplTest {
         assertEquals(walletRepository.findAll(), walletService.getWallets());
     }
 
+    /*
+     *
+     * Get salary calculated salary in year.
+     * 
+     * @result salary in year calculated
+     */
     @Test
     void testGetSalaryYear() {
         WalletModel wallet = new WalletModel(4700000);
         when(walletRepository.findById(wallet.getId())).thenReturn(Optional.of(wallet));
-        var salaryRepository = walletService.averageSalaryYear(
+        var salaryRepository = walletService.salaryAnual(
                 walletRepository.findById(wallet.getId()).get().getSalary());
-        var salary = walletService.averageSalaryYear(wallet.getSalary());
+        var salary = walletService.salaryAnual(wallet.getSalary());
         assertEquals(salaryRepository, salary);
     }
 

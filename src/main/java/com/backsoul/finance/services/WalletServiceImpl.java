@@ -21,7 +21,7 @@ public class WalletServiceImpl implements WalletService {
     }
 
     @Override
-    public int averageSalaryYear(int salary) {
-        return salary;
+    public int salaryAnual(int salary) {
+        return salary * 12;
     }
 }

@@ -11,5 +11,5 @@ public interface WalletService {
      */
     public List<WalletModel> getWallets();
 
-    public int averageSalaryYear(int salary);
+    public int salaryAnual(int salary);
 }
