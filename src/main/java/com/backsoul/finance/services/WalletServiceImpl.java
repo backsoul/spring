@@ -19,4 +19,9 @@ public class WalletServiceImpl implements WalletService {
     public List<WalletModel> getWallets() {
         return (List<WalletModel>) walletRepository.findAll();
     }
+
+    @Override
+    public int averageSalaryYear(int salary) {
+        return salary;
+    }
 }

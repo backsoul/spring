@@ -1,8 +1,8 @@
 version: '3'
 
 services:
-  spring:
-    container_name: spring
+  finance:
+    container_name: finance
     build:
       context: .
       dockerfile: Dockerfile
