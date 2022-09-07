@@ -11,11 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
-import com.backsoul.finance.models.WalletModel;
+import com.backsoul.finance.models.Wallet;
 import com.backsoul.finance.repositories.WalletRepository;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 @SpringBootTest
 public class WalletServiceImplTest {
@@ -34,8 +31,8 @@ public class WalletServiceImplTest {
      */
     @Test
     void testGetWallets() {
-        WalletModel wallet = new WalletModel(4700000);
-        List<WalletModel> wallets = new ArrayList<WalletModel>();
+        Wallet wallet = new Wallet();
+        List<Wallet> wallets = new ArrayList<Wallet>();
         wallets.add(wallet);
         when(walletRepository.findAll()).thenReturn(wallets);
         assertEquals(walletRepository.findAll(), walletService.getWallets());
@@ -49,12 +46,32 @@ public class WalletServiceImplTest {
      */
     @Test
     void testGetSalaryYear() {
-        WalletModel wallet = new WalletModel(4700000);
+        Wallet wallet = new Wallet();
+
+        int salaryAmount = 4500000;
+
+        wallet.setSalary(salaryAmount);
+
         when(walletRepository.findById(wallet.getId())).thenReturn(Optional.of(wallet));
+
         var salaryRepository = walletService.salaryAnual(
                 walletRepository.findById(wallet.getId()).get().getSalary());
-        var salary = walletService.salaryAnual(wallet.getSalary());
+
+        var salary = walletService.salaryAnual(salaryAmount);
         assertEquals(salaryRepository, salary);
+    }
+
+    /*
+     * Create new wallet
+     * 
+     * @result assert the new wallet is created.
+     */
+    @Test
+    void testCreateWallet() {
+        Wallet wallet = new Wallet();
+        when(walletRepository.save(wallet)).thenReturn(wallet);
+        walletRepository.save(wallet);
+        assertEquals(wallet, walletRepository.save(wallet));
     }
 
 }

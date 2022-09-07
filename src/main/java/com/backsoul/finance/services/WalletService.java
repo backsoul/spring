@@ -1,15 +1,20 @@
 package com.backsoul.finance.services;
 
 import java.util.List;
-import java.util.UUID;
 
-import com.backsoul.finance.models.WalletModel;
+import org.springframework.http.ResponseEntity;
+
+import com.backsoul.finance.models.Wallet;
 
 public interface WalletService {
     /**
      * @return
      */
-    public List<WalletModel> getWallets();
+    public List<Wallet> getWallets();
+
+    public ResponseEntity<Wallet> createWallet();
 
     public int salaryAnual(int salary);
+
+    public Wallet getWalletById(String id);
 }
