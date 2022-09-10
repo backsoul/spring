@@ -1,4 +1,4 @@
-package com.backsoul.finance.models;
+package com.backsoul.wallet.model;
 
 import java.util.UUID;
 
@@ -19,6 +19,8 @@ public class Wallet {
 
     private int amountInitial;
 
+    private String userId;
+
     /**
      * 
      */
@@ -26,6 +28,7 @@ public class Wallet {
         this.id = UUID.randomUUID().toString();
         this.amountInitial = 0;
         this.salary = 0;
+        this.userId = "";
     }
 
     public int getAmountInitial() {
@@ -46,6 +49,18 @@ public class Wallet {
 
     public String getId() {
         return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
 }
