@@ -25,7 +25,9 @@ public class TransactionController {
         String description = bodyData.getPayloadValue("description");
         String categoryId = bodyData.getPayloadValue("categoryId");
         String moveId = bodyData.getPayloadValue("moveId");
+        java.sql.Timestamp date = java.sql.Timestamp.valueOf(bodyData.getPayloadValue("date"));
+
         return transactionServiceImpl.createTransaction(bodyData.getUserValue("Id"), amount, description, categoryId,
-                moveId);
+                moveId, date);
     }
 }

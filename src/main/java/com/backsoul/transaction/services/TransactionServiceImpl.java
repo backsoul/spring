@@ -34,7 +34,7 @@ public class TransactionServiceImpl implements TransactionService {
 
     @Override
     public Transaction createTransaction(String userId, int amount, String description, String categoryId,
-            String moveId) {
+            String moveId, java.sql.Timestamp date) {
         Transaction transaction = new Transaction();
         Wallet wallet = walletServiceImpl.getWallet(userId).get();
         Category category = categoryServiceImpl.findById(categoryId);
@@ -44,6 +44,7 @@ public class TransactionServiceImpl implements TransactionService {
         transaction.setDescription(description);
         transaction.setCategory(category);
         transaction.setMove(move);
+        transaction.setDate(date);
         Transaction _transaction = transactionRepository.save(transaction);
         return _transaction;
     }

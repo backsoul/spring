@@ -45,8 +45,19 @@ public class Transaction {
     @JsonIgnore
     private Move move;
 
+    @Basic
+    private java.sql.Timestamp date;
+
     public Transaction() {
         this.id = UUID.randomUUID().toString();
+    }
+
+    public java.sql.Timestamp getDate() {
+        return date;
+    }
+
+    public void setDate(java.sql.Timestamp date) {
+        this.date = date;
     }
 
     public Move getMove() {
