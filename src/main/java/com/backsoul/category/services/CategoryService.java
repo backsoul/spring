@@ -8,5 +8,7 @@ import com.backsoul.category.model.Category;
 public interface CategoryService {
     public Category createCategory(String userId, String name);
 
-    public List<Optional<Category>> findByUserId(String userId);
+    public List<Category> findByUserId(String userId);
+
+    public Category findById(String categoryId);
 }

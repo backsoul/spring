@@ -29,7 +29,7 @@ public class CategoryController {
     }
 
     @GetMapping()
-    public List<Optional<Category>> categories(@RequestBody String body) {
+    public List<Category> categories(@RequestBody String body) {
         BodyData bodyData = new BodyData(body);
         String userId = bodyData.getUserValue("Id");
         return categoryServiceImpl.findByUserId(userId);

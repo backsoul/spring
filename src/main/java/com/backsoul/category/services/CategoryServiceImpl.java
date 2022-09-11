@@ -32,7 +32,12 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public List<Optional<Category>> findByUserId(String userId) {
+    public List<Category> findByUserId(String userId) {
         return categoryRepository.findByuserId(userId);
+    }
+
+    @Override
+    public Category findById(String categoryId) {
+        return categoryRepository.findById(categoryId).get();
     }
 }

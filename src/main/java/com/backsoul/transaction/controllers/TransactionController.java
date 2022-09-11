@@ -22,6 +22,8 @@ public class TransactionController {
     public Transaction main(@RequestBody String body) {
         BodyData bodyData = new BodyData(body);
         int amount = Integer.parseInt(bodyData.getPayloadValue("amount"));
-        return transactionServiceImpl.createTransaction(bodyData.getUserValue("Id"), amount);
+        String description = bodyData.getPayloadValue("description");
+        String categoryId = bodyData.getPayloadValue("categoryId");
+        return transactionServiceImpl.createTransaction(bodyData.getUserValue("Id"), amount, description, categoryId);
     }
 }

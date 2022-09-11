@@ -8,6 +8,7 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
+import com.backsoul.category.model.Category;
 import com.backsoul.wallet.model.Wallet;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -27,10 +28,37 @@ public class Transaction {
     @JsonIgnore
     private Wallet wallet;
 
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "category_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
+    private Category category;
+
     private int amount;
+
+    private String description;
+
+    @Enumerated(EnumType.ORDINAL)
+    private TypeMove typeMove;
 
     public Transaction() {
         this.id = UUID.randomUUID().toString();
+    }
+
+    public TypeMove getTypeMove() {
+        return typeMove;
+    }
+
+    public void setTypeMove(TypeMove typeMove) {
+        this.typeMove = typeMove;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public int getAmount() {
@@ -55,6 +83,14 @@ public class Transaction {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
 }

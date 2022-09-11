@@ -3,5 +3,5 @@ package com.backsoul.transaction.services;
 import com.backsoul.transaction.models.Transaction;
 
 public interface TransactionService {
-    public Transaction createTransaction(String walletId, int amount);
+    public Transaction createTransaction(String walletId, int amount, String description, String categoryId);
 }

@@ -1,4 +1,4 @@
-package com.backsoul.category.model;
+package com.backsoul.move.model;
 
 import java.util.UUID;
 
@@ -7,18 +7,17 @@ import javax.persistence.*;
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
-@Table(name = "categories")
-public class Category {
+@Table(name = "moves")
+public class Move {
 
     @Id
     @GeneratedValue(generator = "UUID", strategy = GenerationType.IDENTITY)
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     @Column(name = "id", updatable = false, nullable = false)
     private String id;
-    private String userId;
     private String name;
 
-    public Category() {
+    public Move() {
         this.id = UUID.randomUUID().toString();
     }
 
@@ -33,13 +32,4 @@ public class Category {
     public void setName(String name) {
         this.name = name;
     }
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
-
 }
