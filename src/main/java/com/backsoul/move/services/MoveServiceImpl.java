@@ -20,4 +20,10 @@ public class MoveServiceImpl implements MoveService {
     public List<Move> getMoves() {
         return (List<Move>) moveRepository.findAll();
     }
+
+    @Override
+    public Move findById(String id) {
+        return moveRepository.findById(id).get();
+    }
+
 }

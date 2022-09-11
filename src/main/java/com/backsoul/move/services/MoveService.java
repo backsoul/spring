@@ -8,4 +8,6 @@ import com.backsoul.move.model.Move;
 public interface MoveService {
     public List<Move> getMoves();
 
+    public Move findById(String id);
+
 }

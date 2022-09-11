@@ -9,6 +9,7 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import com.backsoul.category.model.Category;
+import com.backsoul.move.model.Move;
 import com.backsoul.wallet.model.Wallet;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -38,19 +39,22 @@ public class Transaction {
 
     private String description;
 
-    @Enumerated(EnumType.ORDINAL)
-    private TypeMove typeMove;
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "move_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
+    private Move move;
 
     public Transaction() {
         this.id = UUID.randomUUID().toString();
     }
 
-    public TypeMove getTypeMove() {
-        return typeMove;
+    public Move getMove() {
+        return move;
     }
 
-    public void setTypeMove(TypeMove typeMove) {
-        this.typeMove = typeMove;
+    public void setMove(Move move) {
+        this.move = move;
     }
 
     public String getDescription() {

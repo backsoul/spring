@@ -24,6 +24,8 @@ public class TransactionController {
         int amount = Integer.parseInt(bodyData.getPayloadValue("amount"));
         String description = bodyData.getPayloadValue("description");
         String categoryId = bodyData.getPayloadValue("categoryId");
-        return transactionServiceImpl.createTransaction(bodyData.getUserValue("Id"), amount, description, categoryId);
+        String moveId = bodyData.getPayloadValue("moveId");
+        return transactionServiceImpl.createTransaction(bodyData.getUserValue("Id"), amount, description, categoryId,
+                moveId);
     }
 }
