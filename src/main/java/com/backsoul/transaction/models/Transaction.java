@@ -48,8 +48,28 @@ public class Transaction {
     @Basic
     private java.sql.Timestamp date;
 
+    private boolean isRecurrent;
+
+    private String month;
+
     public Transaction() {
         this.id = UUID.randomUUID().toString();
+    }
+
+    public String getMonth() {
+        return month;
+    }
+
+    public void setMonth(String month) {
+        this.month = month;
+    }
+
+    public boolean isRecurrent() {
+        return isRecurrent;
+    }
+
+    public void setRecurrent(boolean isRecurrent) {
+        this.isRecurrent = isRecurrent;
     }
 
     public java.sql.Timestamp getDate() {

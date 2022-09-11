@@ -1,5 +1,6 @@
 package com.backsoul.transaction.controllers;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,11 +29,11 @@ public class TransactionController {
         String description = bodyData.getPayloadValue("description");
         String categoryId = bodyData.getPayloadValue("categoryId");
         String moveId = bodyData.getPayloadValue("moveId");
-        System.out.println("TransactionController" + bodyData.getPayloadValue("date"));
+        Boolean isRecurrent = Boolean.valueOf(bodyData.getPayloadValue("isRecurrent"));
         java.sql.Timestamp date = java.sql.Timestamp.valueOf(bodyData.getPayloadValue("date"));
-
+        String month = (new SimpleDateFormat("MMMM")).format(date.getTime());
         return transactionServiceImpl.createTransaction(bodyData.getUserValue("Id"), amount, description, categoryId,
-                moveId, date);
+                moveId, date, isRecurrent, month);
     }
 
     @GetMapping()

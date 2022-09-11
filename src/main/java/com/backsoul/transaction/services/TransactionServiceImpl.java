@@ -15,7 +15,6 @@ import com.backsoul.move.model.Move;
 import com.backsoul.move.services.MoveServiceImpl;
 import com.backsoul.transaction.models.Transaction;
 import com.backsoul.transaction.models.TransactionReportMonth;
-import com.backsoul.transaction.models.TypeMove;
 import com.backsoul.transaction.repository.TransactionRepository;
 
 @Service
@@ -38,7 +37,7 @@ public class TransactionServiceImpl implements TransactionService {
 
     @Override
     public Transaction createTransaction(String userId, int amount, String description, String categoryId,
-            String moveId, java.sql.Timestamp date) {
+            String moveId, java.sql.Timestamp date, Boolean isRecurrent, String month) {
         Transaction transaction = new Transaction();
         Wallet wallet = walletServiceImpl.getWallet(userId).get();
         Category category = categoryServiceImpl.findById(categoryId);
@@ -49,6 +48,8 @@ public class TransactionServiceImpl implements TransactionService {
         transaction.setCategory(category);
         transaction.setMove(move);
         transaction.setDate(date);
+        transaction.setRecurrent(isRecurrent);
+        transaction.setMonth(month);
         Transaction _transaction = transactionRepository.save(transaction);
         return _transaction;
     }
@@ -60,11 +61,12 @@ public class TransactionServiceImpl implements TransactionService {
 
     @Override
     public List<TransactionReportMonth> getTransactionReportMonth(String userId) {
+        TransactionReportMonth reportMonth = new TransactionReportMonth();
+        reportMonth.setupMonths();
         List<Transaction> transactions = (List<Transaction>) transactionRepository.findAll();
-        List<TransactionReportMonth> transactionsReportMonth = new ArrayList<TransactionReportMonth>();
-        TransactionReportMonth transactionReportMonth = new TransactionReportMonth();
-        transactionReportMonth.setTotal(1000);
-        transactionsReportMonth.add(transactionReportMonth);
-        return transactionsReportMonth;
+        for (var transaction : transactions) {
+            reportMonth.setAmountMonth(transaction.getMonth(), transaction.getAmount());
+        }
+        return reportMonth.months;
     }
 }

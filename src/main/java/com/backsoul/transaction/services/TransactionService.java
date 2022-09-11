@@ -7,7 +7,7 @@ import com.backsoul.transaction.models.TransactionReportMonth;
 
 public interface TransactionService {
     public Transaction createTransaction(String walletId, int amount, String description, String categoryId,
-            String moveId, java.sql.Timestamp date);
+            String moveId, java.sql.Timestamp date, Boolean isRecurrent, String month);
 
     public List<Transaction> getTransactions();
 
