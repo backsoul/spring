@@ -27,8 +27,18 @@ public class Transaction {
     @JsonIgnore
     private Wallet wallet;
 
+    private int amount;
+
     public Transaction() {
         this.id = UUID.randomUUID().toString();
+    }
+
+    public int getAmount() {
+        return amount;
+    }
+
+    public void setAmount(int amount) {
+        this.amount = amount;
     }
 
     public Wallet getWallet() {

@@ -1,6 +1,7 @@
 package com.backsoul.transaction.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,8 +20,8 @@ public class TransactionController {
 
     @PostMapping()
     public Transaction main(@RequestBody String body) {
-        // BodyData bodyData = new BodyData(body);
-
-        return transactionServiceImpl.createTransaction("84ab32dd-493d-4a4c-6496-1ce9f1762ae1");
+        BodyData bodyData = new BodyData(body);
+        int amount = Integer.parseInt(bodyData.getPayloadValue("amount"));
+        return transactionServiceImpl.createTransaction(bodyData.getUserValue("Id"), amount);
     }
 }
