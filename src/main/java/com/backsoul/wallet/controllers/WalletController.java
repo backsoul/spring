@@ -1,7 +1,7 @@
 package com.backsoul.wallet.controllers;
 
 import com.backsoul.MainApplication;
-import com.backsoul.forms.BodyData;
+import com.backsoul.utils.BodyData;
 import com.backsoul.wallet.model.Wallet;
 import com.backsoul.wallet.services.WalletServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,6 +1,5 @@
 package com.backsoul.transaction.services;
 
-import com.backsoul.transaction.repositories.TransactionRepository;
 import com.backsoul.wallet.model.Wallet;
 import com.backsoul.wallet.services.WalletServiceImpl;
 
@@ -8,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.backsoul.transaction.models.Transaction;
+import com.backsoul.transaction.repository.TransactionRepository;
 
 @Service
 public class TransactionServiceImpl implements TransactionService {

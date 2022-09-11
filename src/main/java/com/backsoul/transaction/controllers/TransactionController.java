@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.backsoul.MainApplication;
-import com.backsoul.forms.BodyData;
 import com.backsoul.transaction.models.Transaction;
 import com.backsoul.transaction.services.TransactionServiceImpl;
+import com.backsoul.utils.BodyData;
 
 @RestController
 @RequestMapping(MainApplication.BASE_API_URL + "/transaction")

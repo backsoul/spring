@@ -12,7 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
 import com.backsoul.wallet.model.Wallet;
-import com.backsoul.wallet.repositories.WalletRepository;
+import com.backsoul.wallet.repository.WalletRepository;
 import com.backsoul.wallet.services.WalletServiceImpl;
 
 @SpringBootTest

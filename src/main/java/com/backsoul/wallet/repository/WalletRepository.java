@@ -1,4 +1,4 @@
-package com.backsoul.wallet.repositories;
+package com.backsoul.wallet.repository;
 
 import java.util.Optional;
 
