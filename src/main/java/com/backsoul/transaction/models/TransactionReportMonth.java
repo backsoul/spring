@@ -11,6 +11,7 @@ public class TransactionReportMonth {
     public List<TransactionReportMonth> months;
 
     public TransactionReportMonth() {
+        this.total = 0;
     }
 
     public String getMonth() {
@@ -32,9 +33,22 @@ public class TransactionReportMonth {
     public void setAmountMonth(String monthName, int amount) {
         for (var month : this.months) {
             if (month.getMonth().equals(monthName)) {
-                month.setTotal(month.getTotal() + amount);
+                month.setTotal(amount);
             }
         }
+    }
+
+    public TransactionReportMonth getMonthByName(String monthName) {
+        for (var month : this.months) {
+            if (month.getMonth().equals(monthName)) {
+                return month;
+            }
+        }
+        return null;
+    }
+
+    public List<TransactionReportMonth> getMonthByName() {
+        return months;
     }
 
     public void setupMonths() {

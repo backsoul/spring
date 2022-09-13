@@ -65,8 +65,28 @@ public class TransactionServiceImpl implements TransactionService {
         reportMonth.setupMonths();
         List<Transaction> transactions = (List<Transaction>) transactionRepository.findAll();
         for (var transaction : transactions) {
+            int amount = 0;
+            if (transaction.getMove().getName().contains("Ingreso")) {
+                amount = reportMonth.getMonthByName(transaction.getMonth()).getTotal() + transaction.getAmount();
+            }
+            if (transaction.getMove().getName().contains("Egreso")) {
+                amount = reportMonth.getMonthByName(transaction.getMonth()).getTotal() - transaction.getAmount();
+            }
+            reportMonth.setAmountMonth(transaction.getMonth(), amount);
+        }
+        return reportMonth.months;
+    }
+
+    @Override
+    public List<TransactionReportMonth> getTransactionReportEntries(String userId, String MoveId) {
+        TransactionReportMonth reportMonth = new TransactionReportMonth();
+        reportMonth.setupMonths();
+        List<Transaction> transactions = (List<Transaction>) transactionRepository
+                .findTransactionByMoveId(MoveId);
+        for (var transaction : transactions) {
             reportMonth.setAmountMonth(transaction.getMonth(), transaction.getAmount());
         }
         return reportMonth.months;
     }
+
 }

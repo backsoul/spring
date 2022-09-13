@@ -46,7 +46,6 @@ public class WalletServiceImpl implements WalletService {
                 return findWallet.get().getId();
             }
         } catch (Exception e) {
-            System.out.println(e);
             return "Error al crear la wallet";
         }
     }

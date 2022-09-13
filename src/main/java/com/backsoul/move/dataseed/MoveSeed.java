@@ -37,6 +37,5 @@ public class MoveSeed implements CommandLineRunner {
             move4.setName("Transferencia");
             moveRepository.save(move4);
         }
-        System.out.println(moveRepository.count());
     }
 }

@@ -12,4 +12,7 @@ public interface TransactionService {
     public List<Transaction> getTransactions();
 
     public List<TransactionReportMonth> getTransactionReportMonth(String userId);
+
+    public List<TransactionReportMonth> getTransactionReportEntries(String userId, String MoveId);
+
 }
