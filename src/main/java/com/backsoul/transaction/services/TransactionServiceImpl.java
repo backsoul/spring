@@ -70,7 +70,15 @@ public class TransactionServiceImpl implements TransactionService {
                 amount = reportMonth.getMonthByName(transaction.getMonth()).getTotal() + transaction.getAmount();
             }
             if (transaction.getMove().getName().contains("Egreso")) {
-                amount = reportMonth.getMonthByName(transaction.getMonth()).getTotal() - transaction.getAmount();
+                amount = transaction.getAmount() - reportMonth.getMonthByName(transaction.getMonth()).getTotal();
+            }
+
+            if (transaction.getMove().getName().contains("Retiro")) {
+                amount = transaction.getAmount() - reportMonth.getMonthByName(transaction.getMonth()).getTotal();
+            }
+
+            if (transaction.getMove().getName().contains("Transferencia")) {
+                amount = transaction.getAmount() - reportMonth.getMonthByName(transaction.getMonth()).getTotal();
             }
             reportMonth.setAmountMonth(transaction.getMonth(), amount);
         }

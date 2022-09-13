@@ -1,12 +1,14 @@
 package com.backsoul.category.services;
 
 import com.backsoul.category.model.Category;
+import com.backsoul.category.model.CategoryChart;
 import com.backsoul.category.repository.CategoryRepository;
+import com.backsoul.transaction.models.Transaction;
+import com.backsoul.transaction.repository.TransactionRepository;
+import com.backsoul.wallet.model.Wallet;
+import com.backsoul.wallet.repository.WalletRepository;
 import com.backsoul.wallet.services.WalletServiceImpl;
-
 import java.util.List;
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,8 +20,15 @@ public class CategoryServiceImpl implements CategoryService {
 
     private final CategoryRepository categoryRepository;
 
-    CategoryServiceImpl(CategoryRepository categoryRepository) {
+    private final TransactionRepository transactionRepository;
+
+    private final WalletRepository walletRepository;
+
+    CategoryServiceImpl(CategoryRepository categoryRepository, TransactionRepository transactionRepository,
+            WalletRepository walletRepository) {
         this.categoryRepository = categoryRepository;
+        this.transactionRepository = transactionRepository;
+        this.walletRepository = walletRepository;
     }
 
     @Override
@@ -40,4 +49,20 @@ public class CategoryServiceImpl implements CategoryService {
     public Category findById(String categoryId) {
         return categoryRepository.findById(categoryId).get();
     }
+
+    @Override
+    public List<CategoryChart> categoriesReport(String userId) {
+        List<Category> categories = categoryRepository.findByuserId(userId);
+        CategoryChart categoriesChart = new CategoryChart();
+        categoriesChart.setupMonths(categories);
+
+        Wallet wallet = walletRepository.findByuserId(userId).get();
+        List<Transaction> transactions = (List<Transaction>) transactionRepository
+                .findTransactionByMoveId(wallet.getId());
+        for (var transaction : transactions) {
+            categoriesChart.setAmountCategory(transaction.getCategory().getName(), transaction.getAmount());
+        }
+        return categoriesChart.categoriesChart;
+    }
+
 }

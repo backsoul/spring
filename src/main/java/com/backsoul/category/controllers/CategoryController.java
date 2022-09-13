@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.backsoul.MainApplication;
 import com.backsoul.category.model.Category;
+import com.backsoul.category.model.CategoryChart;
 import com.backsoul.category.services.CategoryServiceImpl;
 import com.backsoul.utils.BodyData;
 
@@ -33,5 +34,12 @@ public class CategoryController {
         BodyData bodyData = new BodyData(body);
         String userId = bodyData.getUserValue("Id");
         return categoryServiceImpl.findByUserId(userId);
+    }
+
+    @GetMapping("/report")
+    public List<CategoryChart> categoriesReport(@RequestBody String body) {
+        BodyData bodyData = new BodyData(body);
+        String userId = bodyData.getUserValue("Id");
+        return categoryServiceImpl.categoriesReport(userId);
     }
 }
