@@ -12,4 +12,6 @@ import com.backsoul.move.model.Move;
 public interface MoveRepository extends CrudRepository<Move, String> {
     @Query(value = "SELECT id, name FROM moves", nativeQuery = true)
     Iterable<Move> findAll();
+
+    Move findFirstById(String move_id);
 }

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.backsoul.category.model.Category;
 import com.backsoul.category.services.CategoryServiceImpl;
 import com.backsoul.move.model.Move;
+import com.backsoul.move.repository.MoveRepository;
 import com.backsoul.move.services.MoveServiceImpl;
 import com.backsoul.transaction.models.Transaction;
 import com.backsoul.transaction.models.TransactionReportMonth;
@@ -31,8 +32,11 @@ public class TransactionServiceImpl implements TransactionService {
 
     private final TransactionRepository transactionRepository;
 
-    TransactionServiceImpl(TransactionRepository transactionRepository) {
+    private final MoveRepository moveRepository;
+
+    TransactionServiceImpl(TransactionRepository transactionRepository, MoveRepository moveRepository) {
         this.transactionRepository = transactionRepository;
+        this.moveRepository = moveRepository;
     }
 
     @Override
@@ -86,12 +90,15 @@ public class TransactionServiceImpl implements TransactionService {
     }
 
     @Override
-    public List<TransactionReportMonth> getTransactionReportEntries(String userId, String MoveId) {
+    public List<TransactionReportMonth> getTransactionReport(String userId, String moveId) {
         TransactionReportMonth reportMonth = new TransactionReportMonth();
         reportMonth.setupMonths();
+        Move move = moveRepository.findFirstById(moveId);
+        System.out.println("Move name: " + move.getName());
         List<Transaction> transactions = (List<Transaction>) transactionRepository
-                .findTransactionByMoveId(MoveId);
+                .findAllByMove(moveId);
         for (var transaction : transactions) {
+            System.out.println("Transaction " + transaction.getMonth() + " is " + transaction.getAmount());
             reportMonth.setAmountMonth(transaction.getMonth(), transaction.getAmount());
         }
         return reportMonth.months;

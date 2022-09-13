@@ -48,9 +48,9 @@ public class TransactionController {
     }
 
     @PostMapping("/reportTypeMove")
-    public List<TransactionReportMonth> getTransactionReportEntries(@RequestBody String body) {
+    public List<TransactionReportMonth> getTransactionReport(@RequestBody String body) {
         BodyData bodyData = new BodyData(body);
-        return transactionServiceImpl.getTransactionReportEntries(bodyData.getUserValue("Id"),
+        return transactionServiceImpl.getTransactionReport(bodyData.getUserValue("Id"),
                 bodyData.getPayloadValue("moveId"));
     }
 }

@@ -32,6 +32,15 @@ public class CategoryChart {
         }
     }
 
+    public CategoryChart getCategory(String monthName) {
+        for (var month : this.categoriesChart) {
+            if (month.getName().equals(monthName)) {
+                return month;
+            }
+        }
+        return null;
+    }
+
     public void setupMonths(List<Category> categories) {
         List<CategoryChart> categoriesChart = new ArrayList<CategoryChart>();
         for (var category : categories) {

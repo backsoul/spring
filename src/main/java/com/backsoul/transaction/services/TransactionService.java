@@ -13,6 +13,6 @@ public interface TransactionService {
 
     public List<TransactionReportMonth> getTransactionReportMonth(String userId);
 
-    public List<TransactionReportMonth> getTransactionReportEntries(String userId, String MoveId);
+    public List<TransactionReportMonth> getTransactionReport(String userId, String MoveId);
 
 }
