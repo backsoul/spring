@@ -5,6 +5,7 @@ import com.backsoul.wallet.services.WalletServiceImpl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,11 +33,8 @@ public class TransactionServiceImpl implements TransactionService {
 
     private final TransactionRepository transactionRepository;
 
-    private final MoveRepository moveRepository;
-
-    TransactionServiceImpl(TransactionRepository transactionRepository, MoveRepository moveRepository) {
+    TransactionServiceImpl(TransactionRepository transactionRepository) {
         this.transactionRepository = transactionRepository;
-        this.moveRepository = moveRepository;
     }
 
     @Override
@@ -59,15 +57,17 @@ public class TransactionServiceImpl implements TransactionService {
     }
 
     @Override
-    public List<Transaction> getTransactions() {
-        return (List<Transaction>) transactionRepository.findAll();
+    public List<Transaction> getTransactions(String userId) {
+        Wallet wallet = walletServiceImpl.getWallet(userId).get();
+        return (List<Transaction>) transactionRepository.findByWalletId(wallet.getId());
     }
 
     @Override
     public List<TransactionReportMonth> getTransactionReportMonth(String userId) {
         TransactionReportMonth reportMonth = new TransactionReportMonth();
+        Wallet wallet = walletServiceImpl.getWallet(userId).get();
         reportMonth.setupMonths();
-        List<Transaction> transactions = (List<Transaction>) transactionRepository.findAll();
+        List<Transaction> transactions = transactionRepository.findByWalletId(wallet.getId());
         for (var transaction : transactions) {
             int amount = 0;
             if (transaction.getMove().getName().contains("Ingreso")) {
@@ -92,11 +92,11 @@ public class TransactionServiceImpl implements TransactionService {
     @Override
     public List<TransactionReportMonth> getTransactionReport(String userId, String moveId) {
         TransactionReportMonth reportMonth = new TransactionReportMonth();
+        Wallet wallet = walletServiceImpl.getWallet(userId).get();
         reportMonth.setupMonths();
-        Move move = moveRepository.findFirstById(moveId);
-        System.out.println("Move name: " + move.getName());
-        List<Transaction> transactions = (List<Transaction>) transactionRepository
-                .findAllByMove(moveId);
+        List<Transaction> transactions = transactionRepository.findByMoveIdAndWalletId(moveId, wallet.getId());
+        System.out.println("Move report: " + moveId);
+        System.out.println("Transaction report: " + transactions.size());
         for (var transaction : transactions) {
             System.out.println("Transaction " + transaction.getMonth() + " is " + transaction.getAmount());
             reportMonth.setAmountMonth(transaction.getMonth(), transaction.getAmount());

@@ -9,7 +9,7 @@ public interface TransactionService {
     public Transaction createTransaction(String walletId, int amount, String description, String categoryId,
             String moveId, java.sql.Timestamp date, Boolean isRecurrent, String month);
 
-    public List<Transaction> getTransactions();
+    public List<Transaction> getTransactions(String userId);
 
     public List<TransactionReportMonth> getTransactionReportMonth(String userId);
 

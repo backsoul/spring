@@ -57,8 +57,7 @@ public class CategoryServiceImpl implements CategoryService {
         categoriesChart.setupMonths(categories);
 
         Wallet wallet = walletRepository.findByuserId(userId).get();
-        List<Transaction> transactions = (List<Transaction>) transactionRepository
-                .findAllBywalletId(wallet.getId());
+        List<Transaction> transactions = (List<Transaction>) transactionRepository.findAll();
         for (var transaction : transactions) {
             int amount = transaction.getAmount()
                     + categoriesChart.getCategory(transaction.getCategory().getName()).getAmount();

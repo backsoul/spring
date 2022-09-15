@@ -37,8 +37,9 @@ public class TransactionController {
     }
 
     @GetMapping()
-    public List<Transaction> getWallet() {
-        return transactionServiceImpl.getTransactions();
+    public List<Transaction> getTransactions(@RequestBody String body) {
+        BodyData bodyData = new BodyData(body);
+        return transactionServiceImpl.getTransactions(bodyData.getUserValue("Id"));
     }
 
     @GetMapping("/reportMonths")
