@@ -6,7 +6,17 @@ import java.util.List;
 public class CategoryChart {
     private String name;
     private int amount;
+    private String color;
+
     public List<CategoryChart> categoriesChart;
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
 
     public int getAmount() {
         return amount;
@@ -28,6 +38,14 @@ public class CategoryChart {
         for (var month : this.categoriesChart) {
             if (month.getName().equals(category)) {
                 month.setAmount(amount);
+            }
+        }
+    }
+
+    public void setColorCategory(String category, String color) {
+        for (var month : this.categoriesChart) {
+            if (month.getName().equals(category)) {
+                month.setColor(color);
             }
         }
     }

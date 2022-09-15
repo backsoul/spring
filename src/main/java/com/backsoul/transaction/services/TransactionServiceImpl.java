@@ -63,6 +63,12 @@ public class TransactionServiceImpl implements TransactionService {
     }
 
     @Override
+    public List<Transaction> getTransactionsRecurrent(String userId) {
+        Wallet wallet = walletServiceImpl.getWallet(userId).get();
+        return (List<Transaction>) transactionRepository.findByisRecurrentTrueAndWalletId(wallet.getId());
+    }
+
+    @Override
     public List<TransactionReportMonth> getTransactionReportMonth(String userId) {
         TransactionReportMonth reportMonth = new TransactionReportMonth();
         Wallet wallet = walletServiceImpl.getWallet(userId).get();
@@ -94,12 +100,11 @@ public class TransactionServiceImpl implements TransactionService {
         TransactionReportMonth reportMonth = new TransactionReportMonth();
         Wallet wallet = walletServiceImpl.getWallet(userId).get();
         reportMonth.setupMonths();
+
         List<Transaction> transactions = transactionRepository.findByMoveIdAndWalletId(moveId, wallet.getId());
-        System.out.println("Move report: " + moveId);
-        System.out.println("Transaction report: " + transactions.size());
         for (var transaction : transactions) {
-            System.out.println("Transaction " + transaction.getMonth() + " is " + transaction.getAmount());
-            reportMonth.setAmountMonth(transaction.getMonth(), transaction.getAmount());
+            int amount = transaction.getAmount() + reportMonth.getMonthByName(transaction.getMonth()).total;
+            reportMonth.setAmountMonth(transaction.getMonth(), amount);
         }
         return reportMonth.months;
     }

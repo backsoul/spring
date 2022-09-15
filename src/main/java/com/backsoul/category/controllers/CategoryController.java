@@ -1,7 +1,6 @@
 package com.backsoul.category.controllers;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,7 +25,8 @@ public class CategoryController {
     public Category createCategory(@RequestBody String body) {
         BodyData bodyData = new BodyData(body);
         String name = bodyData.getPayloadValue("name");
-        return categoryServiceImpl.createCategory(bodyData.getUserValue("Id"), name);
+        String color = bodyData.getPayloadValue("color");
+        return categoryServiceImpl.createCategory(bodyData.getUserValue("Id"), name, color);
     }
 
     @GetMapping()

@@ -14,4 +14,6 @@ public interface WalletService {
 
     public void CreateCategoriesBase(String userId);
 
+    public int getTotal(String userId);
+
 }

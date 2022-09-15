@@ -42,6 +42,12 @@ public class TransactionController {
         return transactionServiceImpl.getTransactions(bodyData.getUserValue("Id"));
     }
 
+    @GetMapping("/fixed")
+    public List<Transaction> getTransactionsFixed(@RequestBody String body) {
+        BodyData bodyData = new BodyData(body);
+        return transactionServiceImpl.getTransactionsRecurrent(bodyData.getUserValue("Id"));
+    }
+
     @GetMapping("/reportMonths")
     public List<TransactionReportMonth> getTransactionReportMonth(@RequestBody String body) {
         BodyData bodyData = new BodyData(body);

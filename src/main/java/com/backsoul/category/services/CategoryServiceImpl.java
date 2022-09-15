@@ -32,10 +32,11 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public Category createCategory(String userId, String name) {
+    public Category createCategory(String userId, String name, String color) {
         Category category = new Category();
         category.setName(name);
         category.setUserId(userId);
+        category.setColor(color);
         Category _category = categoryRepository.save(category);
         return _category;
     }
@@ -57,11 +58,12 @@ public class CategoryServiceImpl implements CategoryService {
         categoriesChart.setupMonths(categories);
 
         Wallet wallet = walletRepository.findByuserId(userId).get();
-        List<Transaction> transactions = (List<Transaction>) transactionRepository.findAll();
+        List<Transaction> transactions = (List<Transaction>) transactionRepository.findByWalletId(wallet.getId());
         for (var transaction : transactions) {
             int amount = transaction.getAmount()
                     + categoriesChart.getCategory(transaction.getCategory().getName()).getAmount();
             categoriesChart.setAmountCategory(transaction.getCategory().getName(), amount);
+            categoriesChart.setColorCategory(transaction.getCategory().getName(), transaction.getCategory().getColor());
         }
         return categoriesChart.categoriesChart;
     }

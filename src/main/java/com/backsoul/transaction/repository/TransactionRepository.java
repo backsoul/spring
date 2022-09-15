@@ -16,4 +16,7 @@ public interface TransactionRepository extends CrudRepository<Transaction, Strin
     List<Transaction> findByWalletId(String walletId);
 
     List<Transaction> findByMoveIdAndWalletId(String moveId, String walletId);
+
+    List<Transaction> findByisRecurrentTrueAndWalletId(String walletId);
+
 }

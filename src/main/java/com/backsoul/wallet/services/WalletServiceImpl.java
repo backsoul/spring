@@ -2,10 +2,14 @@ package com.backsoul.wallet.services;
 
 import com.backsoul.category.model.Category;
 import com.backsoul.category.repository.CategoryRepository;
+import com.backsoul.transaction.models.Transaction;
+import com.backsoul.transaction.repository.TransactionRepository;
 import com.backsoul.wallet.model.Wallet;
 import com.backsoul.wallet.repository.WalletRepository;
 
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -13,10 +17,13 @@ public class WalletServiceImpl implements WalletService {
 
     private final WalletRepository walletRepository;
     private final CategoryRepository categoryRepository;
+    private final TransactionRepository transactionRepository;
 
-    WalletServiceImpl(WalletRepository walletRepository, CategoryRepository categoryRepository) {
+    WalletServiceImpl(WalletRepository walletRepository, CategoryRepository categoryRepository,
+            TransactionRepository transactionRepository) {
         this.walletRepository = walletRepository;
         this.categoryRepository = categoryRepository;
+        this.transactionRepository = transactionRepository;
     }
 
     @Override
@@ -76,5 +83,16 @@ public class WalletServiceImpl implements WalletService {
         category4.setUserId(userId);
         category4.setName("Otros");
         this.categoryRepository.save(category4);
+    }
+
+    @Override
+    public int getTotal(String userId) {
+        Wallet wallet = walletRepository.findByuserId(userId).get();
+        List<Transaction> transactions = transactionRepository.findByWalletId(wallet.getId());
+        int total = 0;
+        for (Transaction transaction : transactions) {
+            total += transaction.getAmount();
+        }
+        return total;
     }
 }

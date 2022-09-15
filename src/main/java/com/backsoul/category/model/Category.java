@@ -17,9 +17,18 @@ public class Category {
     private String id;
     private String userId;
     private String name;
+    private String color;
 
     public Category() {
         this.id = UUID.randomUUID().toString();
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
     }
 
     public String getId() {

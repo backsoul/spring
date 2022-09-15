@@ -29,4 +29,5 @@ public class WalletController {
         BodyData bodyData = new BodyData(body);
         return walletService.getWallet(bodyData.getUserValue("Id")).get();
     }
+
 }

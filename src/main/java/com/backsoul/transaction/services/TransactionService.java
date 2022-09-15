@@ -11,6 +11,8 @@ public interface TransactionService {
 
     public List<Transaction> getTransactions(String userId);
 
+    public List<Transaction> getTransactionsRecurrent(String userId);
+
     public List<TransactionReportMonth> getTransactionReportMonth(String userId);
 
     public List<TransactionReportMonth> getTransactionReport(String userId, String MoveId);
